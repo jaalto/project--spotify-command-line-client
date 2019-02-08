@@ -1,0 +1,9 @@
+INSTALL: spotify-command-line-client - Call Windows Spotify client
+------------------------------------------------------------------
+
+Manual install
+
+        1. Copy script anywhere in Windows, or somewhere along $PATH
+	2. Call script with absolute path: cscript /nologo <PATH> --help
+
+End of file
