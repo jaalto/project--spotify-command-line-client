@@ -9,7 +9,7 @@ track, album or playlist. Requires Visual Basic Script engine
 This utility is meant to be used as a "middle man" from a 3rd party
 programs to interact with Spotify client like this:
 
-     PROGARM   --> middle man --> SPOTIFY
+     PROGARM  -->  middle man  -->  SPOTIFY
 
 E.g. The Foobar2000[1] audio player has a plugin foo_run[2] which can
 call other programs upon request. This makes it possible e.g. to send
