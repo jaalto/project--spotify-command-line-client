@@ -1,0 +1,57 @@
+README: spotify-command-line-client - Call Windows Spotify client
+-----------------------------------------------------------------
+
+On windows command line, send URIs to spotify. It is possible to e.g.
+send search queries or pass URIs in format spotify:<DATA> to display
+track, album or playlist. Requires Visual Basic Script engine
+(VBscript) which is usually installed standard on Windows.
+
+This utility is meant to be used as a "middle man" from a 3rd party
+programs to interact with Spotify client like this:
+
+     PROGARM   --> middle man --> SPOTIFY
+
+E.g. The Foobar2000[1] audio player has a plugin foo_run[2] which can
+call other programs upon request. This makes it possible e.g. to send
+queries to other programs or Web directly form the player. Using this
+little utility it is possible to send "SEARCHES" to spotify from
+Foobar2000.
+
+[1] http://foobar2000.org
+[2] http://foosion.foobar2000.org/components
+
+The source package directories:
+
+    bin/            The program
+
+Important files
+
+    COPYING         GPL v2 or later Licence
+    INSTALL         Install instructions
+    ChangeLog       Project change records
+
+Project details
+
+    Homepage
+      https://github.com/jaalto/project--spotify-command-line-client
+
+    To report bugs
+      See above
+
+    Source code repository
+      See above
+
+    Depends
+      Windows and VBscript
+
+Copyright
+
+    Copyright (C) 2017-2019 Jari Aalto
+
+License
+
+    This program is free software; you can redistribute and/or modify
+    program under the terms of GNU General Public license either version 2
+    of the License, or (at your option) any later version.
+
+End of file
