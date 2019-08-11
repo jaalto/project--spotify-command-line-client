@@ -97,7 +97,7 @@ sub Help
     & vbnewline _
     & "        spotify:search:word+word..." & vbnewline _
     & vbnewline _
-    & "    In auto mode, non-option arguments are converted into search:" & vbnewline _
+    & "    In ARGS mode, non-option arguments are converted into search:" & vbnewline _
     & vbnewline _
     & "        //  cscript PROGRAM.vbs -a ARG1 ARG2 ARG3 ..." & vbnewline _
     & "        spotify:search:arg1+arg2+arg3..." & vbnewline _
@@ -165,6 +165,8 @@ function isProcess(exe)
     ' DESCRIPTION
     '   Return true if program EXE is running
 
+    Verbose "Checking process: " & exe
+
     Set procshell = wscript.CreateObject("WScript.Shell")
     Set proclist = GetObject("Winmgmts:").ExecQuery ("Select * from Win32_Process")
 
@@ -194,12 +196,14 @@ sub Spotify(path, uri)
         Verbose "NOTE: Spotify not running. Sending an URI may take a while..."
     end if
 
-    Verbose "Sending URI to Spotify: " & uri
+    command = path & " --uri=" & uri
 
-    CreateObject("wscript.Shell").Run(uri)
+    Verbose "Sending URI to Spotify: " & command
+
+    CreateObject("wscript.Shell").Run(command)
 
     if not running then
-       ' conservative time to wait for desktop app to launch properly
+       ' Conservative time to wait for desktop app to launch properly
         sleepTime = 5000
     end if
 
@@ -209,12 +213,14 @@ sub Spotify(path, uri)
 
     if instr(uri, "spotify:track:") then
 	' Wait frame to raise to receive keys
-        wscript.sleep sleepTime
-        SHELL.SendKeys " "
+
+	' Disabled: do not play by default
+        ' wscript.sleep sleepTime
+        ' SHELL.SendKeys " "
 
     elseif instr(uri, "spotify:search:") then
-	'  Put search string to the standard serch field in Spotify
-	'  so that it can be modified
+	'  Put search string to the standard serrch field
+	'  so that it can be modified by the user
 
 	uri = replace(uri, "spotify:search:", "")
 	uri = strConvertUnplus(uri)
@@ -222,7 +228,9 @@ sub Spotify(path, uri)
 	Verbose "Sending Control-L to set focus on search field for: " & uri
 
         wscript.sleep sleepTime
-        SHELL.SendKeys "^L"
+        SHELL.SendKeys "^(l)"
+	SHELL.SendKeys "{BACKSPACE}"
+        wscript.sleep sleepTime
         SHELL.SendKeys uri
     end if
 end sub
@@ -266,7 +274,6 @@ function strConvertUnplus(str)
         strConvertUnplus = .Replace(str, " ")
     end with
 end function
-
 
 function strStripPunctuation(str)
     ' DESCRIPTION
@@ -387,7 +394,7 @@ sub Main
     Verbose "Command line URI data: [" & uri & "]"
 
     if uri = "" then
-       Die "ERROR: missing spotify URI. See -h, --help"
+       Die "ERROR: missing spotify URI. See --help"
     end if
 
     if uriPos < argc then
