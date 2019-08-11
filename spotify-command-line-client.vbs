@@ -115,7 +115,8 @@ sub Warn(str)
 end sub
 
 function isDebug
-    ' Return true if debug is active
+    ' DESCRIPTION
+    '	Return true if debug is active
 
     if DEBUG_SECONDS > 0 then
         isDebug = true
@@ -125,7 +126,8 @@ function isDebug
 end function
 
 sub Sleep
-    ' Sleep if debug is active
+    ' DESCRIPTION
+    '   Sleep if debug is active
 
     if isDebug() then
        wscript.sleep DEBUG_SECONDS * 1000
@@ -133,7 +135,8 @@ sub Sleep
 end sub
 
 sub Quit(msg)
-    ' Display message to stdout and exit
+    ' DESCRIPTION
+    '   Display message to stdout and exit
 
     wscript.Echo msg
     Sleep
@@ -141,21 +144,26 @@ sub Quit(msg)
 end sub
 
 sub Die(str)
-    ' Display message to stderr and exit
+    ' DESCRIPTION
+    '   Display message to stderr and exit
 
     Warn str
     Sleep
     wscript.Quit
 end sub
 
-sub Verbose(msg)
+sub Verbose(message)
+    ' DESCRIPTION
+    '   Display message if verbose is enabled
+
     if VERBOSE_MODE then
-        wscript.echo msg
+        wscript.echo message
     end if
 end sub
 
 function isProcess(exe)
-    ' Return true if program EXE is running
+    ' DESCRIPTION
+    '   Return true if program EXE is running
 
     Set procshell = wscript.CreateObject("WScript.Shell")
     Set proclist = GetObject("Winmgmts:").ExecQuery ("Select * from Win32_Process")
@@ -173,7 +181,8 @@ function isProcess(exe)
 end function
 
 sub Spotify(path, uri)
-    ' Call PATH (spotify.exe) and send URI
+    ' DESCRIPTION
+    '   Call PATH (spotify.exe) and send URI
 
     sleepTime = 1500
     running = True
@@ -219,7 +228,8 @@ sub Spotify(path, uri)
 end sub
 
 function isUri(str)
-    ' Check valid Spotify URI
+    ' DESCRIPTION
+    '   Check valid Spotify URI
 
     set re = new RegExp
     re.IgnoreCase = true
@@ -232,7 +242,8 @@ function isUri(str)
 end function
 
 function strConvertSpace(str, replacement)
-    ' Return string with spaces replaced with REPLACEMENT
+    ' DESCRIPTION
+    '   Return string with spaces replaced with REPLACEMENT
 
     str = trim(str)
 
@@ -244,7 +255,8 @@ function strConvertSpace(str, replacement)
 end function
 
 function strConvertUnplus(str)
-    ' Return string with plus(+) converted to spaces
+    ' DESCRIPTION
+    '   Return string with plus(+) converted to spaces
 
     str = trim(str)
 
@@ -257,7 +269,8 @@ end function
 
 
 function strStripPunctuation(str)
-    ' Return string where punctuations are replaced with spaces
+    ' DESCRIPTION
+    '   Return string where punctuations are replaced with spaces
 
     with new regexp
         .Pattern = "[][<>|;:_+=*,.?!'""`#%&/()~^-]"
@@ -267,7 +280,8 @@ function strStripPunctuation(str)
 end function
 
 function uriCanonicalize(str)
-    ' Return string suitable for "spotify:search:<data>" protocol
+    ' DESCRIPTION
+    '   Return string suitable for "spotify:search:<data>" protocol
 
     original = str
     str = strConvertSpace(str, "+")
@@ -280,7 +294,8 @@ function uriCanonicalize(str)
 end function
 
 function inPath(file)
-    ' Return absolute path if FILE was found in PATH
+    ' DESCRIPTION
+    '   Return absolute path if FILE was found in PATH
 
     paths = SHELL.ExpandEnvironmentStrings("%PATH%")
 
@@ -299,7 +314,8 @@ function inPath(file)
 end function
 
 function SpotifyAppdataPath
-    ' Return path for Spotify desktop client under APPDATA
+    ' DESCRIPTION
+    '   Return path for Spotify desktop client under APPDATA
 
     appdata = SHELL.ExpandEnvironmentStrings("%APPDATA%")
     path = appdata & "\Spotify\spotify.exe"
@@ -316,7 +332,8 @@ function SpotifyAppdataPath
 end function
 
 sub Main
-    ' Main program to handle command line argments
+    ' DESCRIPTION
+    '   Main program. Handles command line arguments.
 
     argc = wscript.Arguments.Count
 

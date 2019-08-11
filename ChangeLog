@@ -1,3 +1,8 @@
+2019-08-11 Sun  Jari Aalto  <jari.aalto@cante.net>
+
+	* spotify-command-line-client.vbs: (DESCRIPTION): Add
+	to all functions.
+
 2019-02-08 Fri  Jari Aalto  <jari.aalto@cante.net>
 
 	* spotify-command-line-client.vbs: Release to Github.
